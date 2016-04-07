@@ -221,15 +221,13 @@ void GBEmulator::run()
 			else
 			{
 				auto op = _z80.mmu.read8b(_z80.reg.pc++);
-				//std::cout << int(op) << " " << _z80.clock.m << " " << i++ << std::endl;
 				(_z80.*gl_ops[op])();
-				//_z80.reg.pc &= 65535;
 				_z80.clock.m += _z80.reg.m;
-				_z80.reg.m = 0;
 				if (_z80.mmu.inbios && _z80.reg.pc == 0x0100)
 					_z80.mmu.inbios = false;
 			}
 			_z80.gpu.modeclock += _z80.reg.m;
+			i++;
 			_z80.gpu.run();
 		} while (_z80.clock.m < fclk);
 
@@ -459,11 +457,11 @@ void	GBEmulator::GPU::updatetile(uint16_t addr, uint8_t val)
 	addr &= 0x1FFE;
 
 	// Work out which tile and row was updated
-	int tile = (addr >> 4) & 511;
+	int tile = ((addr >> 4) & 511);
 	int y = (addr >> 1) & 7;
 
 	int sx;
-	for (int x = 0; x < 8; x++)
+	for (int x = 0; x < 8 && tile < 384; x++)
 	{
 		// Find bit index for this pixel
 		sx = 1 << (7 - x);

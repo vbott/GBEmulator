@@ -71,14 +71,14 @@ public:
 
 		struct
 		{
-			uint8_t		a = 0;
-			uint8_t		b = 0;
-			uint8_t		c = 0;
-			uint8_t		d = 0;
-			uint8_t		e = 0;
-			uint8_t		h = 0;
-			uint8_t		l = 0;
-			uint8_t		f = 0;
+			int		a = 0;
+			int		b = 0;
+			int		c = 0;
+			int		d = 0;
+			int		e = 0;
+			int		h = 0;
+			int		l = 0;
+			int		f = 0;
 
 			uint16_t	pc = 0;
 			uint16_t	sp = 0;
